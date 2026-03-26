@@ -70,7 +70,12 @@ RUN install -d -m 0755 "$COREPACK_HOME" && \
 RUN ln -sf /app/openclaw.mjs /usr/local/bin/openclaw \
  && chmod 755 /app/openclaw.mjs
 
+# Create data directory for gateway runtime state (config, sessions, etc.).
+# On Railway, mount a persistent volume at /data for durability across deploys.
+RUN mkdir -p /data && chown node:node /data
+
 ENV NODE_ENV=production
+ENV HOME=/data
 
 USER node
 
