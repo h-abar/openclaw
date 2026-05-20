@@ -1,5 +1,5 @@
 # Railway-compatible Dockerfile (no BuildKit cache mounts)
-FROM node:24-bookworm AS build
+FROM node:26-bookworm AS build
 
 # Install Bun
 RUN curl --retry 5 --retry-all-errors --retry-delay 2 -fsSL https://bun.sh/install | bash
@@ -40,7 +40,7 @@ RUN CI=true pnpm prune --prod && \
     find dist -type f \( -name '*.d.ts' -o -name '*.d.mts' -o -name '*.d.cts' -o -name '*.map' \) -delete
 
 # ── Runtime ──
-FROM node:24-bookworm
+FROM node:26-bookworm
 
 WORKDIR /app
 
